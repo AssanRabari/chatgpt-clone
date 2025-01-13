@@ -16,7 +16,14 @@ const Homepage = () => {
         <Link to="/dashboard">Get Started</Link>
         {/* <button>Get Started</button> */}
       </div>
-      <div className="right"></div>
+      <div className="right">
+        <div className="img-container">
+          <div className="bg-container">
+            <div className="bg"></div>
+          </div>
+          <img src="/bot.png" alt="" className="bot"/>
+        </div>
+      </div>
     </div>
   );
 };
