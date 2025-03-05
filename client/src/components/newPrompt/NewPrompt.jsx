@@ -3,6 +3,8 @@ import "./NewPrompt.css";
 import Upload from "../upload/Upload";
 import { IKImage } from "imagekitio-react";
 import model from "../../lib/gemini";
+import Markdown from "react-markdown";
+
 const NewPrompt = () => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -16,10 +18,10 @@ const NewPrompt = () => {
 
   useEffect(() => {
     endRef.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  }, [question, answer, image.dbData]);
 
   const add = async (text) => {
-    setQuestion(text)
+    setQuestion(text);
     const result = await model.generateContent(text);
     const response = await result.response;
     setAnswer(response.text());
@@ -46,7 +48,11 @@ const NewPrompt = () => {
       )}
 
       {question && <div className="message user">{question}</div>}
-      {answer && <div className="message">{answer}</div>}
+      {answer && (
+        <div className="message">
+          <Markdown>{answer}</Markdown>
+        </div>
+      )}
 
       <div className="end-chat" ref={endRef}></div>
       <form className="new-form" onSubmit={handleSubmit}>
