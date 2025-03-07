@@ -36,7 +36,8 @@ app.get("/api/upload", (req, res) => {
 });
 
 app.post("/api/chats", ClerkExpressRequireAuth(), async (req, res) => {
-  const { userId, text } = req.body;
+  const userId = req.auth.userId;
+  const { text } = req.body;
   try {
     //Creating new chat
     const newChat = new Chat({
