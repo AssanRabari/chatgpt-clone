@@ -12,6 +12,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@clerk/backend": "^1.25.1",
+    "@clerk/clerk-sdk-node": "^5.1.6",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "imagekit": "^6.0.0",
