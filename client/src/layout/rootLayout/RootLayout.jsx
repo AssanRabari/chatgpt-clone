@@ -8,9 +8,11 @@ import {
   SignInButton,
   UserButton,
 } from "@clerk/clerk-react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
+const queryClient = new QueryClient();
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
@@ -18,25 +20,27 @@ if (!PUBLISHABLE_KEY) {
 const RootLayout = () => {
   return (
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <div className="root-layout">
-        <header>
-          <Link to="/" className="logo">
-            <img src="logo.png" alt="logo" className="logo-img" />
-            <span>ChatGPT</span>
-          </Link>
-          <div className="user">
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>
-        </header>
-        <main>
-          <Outlet />
-        </main>
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="root-layout">
+          <header>
+            <Link to="/" className="logo">
+              <img src="logo.png" alt="logo" className="logo-img" />
+              <span>ChatGPT</span>
+            </Link>
+            <div className="user">
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+          </header>
+          <main>
+            <Outlet />
+          </main>
+        </div>
+      </QueryClientProvider>
     </ClerkProvider>
   );
 };
